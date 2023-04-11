@@ -1,1 +1,1 @@
-# rust blockchain from scratch
+# Blockchain from scratch using Rust 
