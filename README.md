@@ -1,1 +1,1 @@
-# rust-blockchain
+# rust blockchain from scratch
