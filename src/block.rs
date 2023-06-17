@@ -8,12 +8,19 @@ pub struct Block {
     pub prev_block_hash: Blockhash,
     pub hash: Blockhash,
     pub nonce: u64,
-    pub payload: String,
+    pub data: String,
+    pub difficulty: u128
 }
 
 impl Debug for Block {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "Block[{}]: {} at: {} with: {}", &self.index, &hex::encode(&self.hash), &self.timestamp, &self.payload)
+        write!(f, "Block[{}]: {} time: {} data: {} nonce: {}", 
+            &self.index, 
+            &hex::encode(&self.hash), 
+            &self.timestamp, 
+            &self.data, 
+            &self.nonce
+        )
     }
 }
 
@@ -22,7 +29,8 @@ impl Block {
         timestamp: u128,
         prev_block_hash: Blockhash,
         nonce: u64,
-        payload: String
+        data: String,
+        difficulty: u128
     ) -> Self {
 
         Self {
@@ -31,7 +39,21 @@ impl Block {
             prev_block_hash, 
             hash: vec![0; 32], 
             nonce, 
-            payload  
+            data, 
+            difficulty  
+        }
+    }
+
+    pub fn mine(&mut self) {
+        for nonce_attempt in 0..(u64::max_value()) {
+            self.nonce = nonce_attempt;
+
+            let hash = self.hash();
+
+            if check_difficult(&hash, self.difficulty) {
+                self.hash = hash;
+                return;
+            }
         }
     }
 }
@@ -44,8 +66,13 @@ impl HashFunction for Block {
         bytes.extend(&u128_bytes(&self.timestamp));
         bytes.extend(&self.prev_block_hash);
         bytes.extend(&u64_bytes(&self.nonce));
-        bytes.extend(self.payload.as_bytes());
+        bytes.extend(self.data.as_bytes());
+        bytes.extend(&u128_bytes(&self.difficulty));
 
         bytes
     }
+}
+
+pub fn check_difficult(hashx: &Blockhash, difficulty: u128) -> bool {
+    difficulty > difficulty_bytes_as_u128(&hashx)
 }
