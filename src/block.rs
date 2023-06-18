@@ -1,6 +1,15 @@
+use crate::Blockhash;
 use std::fmt::{ self, Debug, Formatter };
-use crate::hash_function::HashFunction;
-use super::*;
+use crate::{
+    hash_function::HashFunction, 
+    bytes::{
+        difficulty_bytes_as_u128, 
+        u128_bytes, 
+        u64_bytes, 
+        u32_bytes
+    }
+};
+
 
 pub struct Block {
     pub index: u32,
