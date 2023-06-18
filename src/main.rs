@@ -6,7 +6,7 @@ use rust_blockchain::{
 };
 
 fn main() {
-    let difficulty = 0x000fffffffffffffffffffffffffffff;
+    let difficulty = 0x0000ffffffffffffffffffffffffffff;
     let mut block = Block::new(0, time_now(), vec![0; 32], 0, "genesis block!".to_string(), difficulty);
 
     block.mine();
@@ -21,7 +21,7 @@ fn main() {
 
     println!("Verify: {}", &blockchain.verify());
 
-    for i in 1..=10 {
+    for i in 1..=1000 {
         let mut block = Block::new(i, time_now(), last_hash, 0, "next block".to_string(), difficulty);
 
         block.mine();
