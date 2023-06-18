@@ -1,4 +1,15 @@
+use std::time::{SystemTime, UNIX_EPOCH};
+
 type Blockhash = Vec<u8>;
+
+pub fn time_now () -> u128 {
+    let duration = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+    ;
+
+    duration.as_secs() as u128 * 1000 + duration.subsec_millis() as u128
+}
 
 pub fn u32_bytes (u: &u32) -> [u8; 4] {
     [
@@ -69,3 +80,4 @@ pub fn difficulty_bytes_as_u128 (hash: &Vec<u8>) -> u128 {
 
 pub mod block;
 pub mod hash_function;
+pub mod blockchain;
