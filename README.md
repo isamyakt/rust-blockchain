@@ -1,7 +1,7 @@
-# Blockchain from scratch using Rust 
+# Creating Blockchain from scratch using Rust 🦀
 
 
-## Local Development
+## Local Development 🛠
 
 
 First clone the repo ```git clone https://github.com/isamyakt/rust-blockchain.git```
