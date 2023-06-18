@@ -2,7 +2,7 @@ use rust_blockchain::{
     block::Block, 
     hash_function::HashFunction, 
     blockchain::Blockchain, 
-    time_now
+    timestamp::time_now,
 };
 
 fn main() {
