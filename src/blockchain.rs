@@ -16,10 +16,7 @@ impl Blockchain {
             } else if i != 0 {
                 // check genesis block 
                 let prev_block = &self.blocks[i-1];
-                if block.timestamp <= prev_block.timestamp {
-                    println!("Time didn't increase");
-                    return false;
-                } else if block.prev_block_hash != prev_block.hash {
+                if block.prev_block_hash != prev_block.hash {
                     println!("hash mismatch");
                     return false;
                 }
